@@ -2,6 +2,7 @@ import Info from "../Components/Info";
 import Navbar from "../Components/Navbar";
 import Search from "../Components/Search";
 import User from "../Components/User";
+import Repos from '../Components/Repos'
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
         <Search/>
         <Info/>
         <User/>
+        <Repos/>
     </main>
   )
 };
