@@ -1,31 +1,52 @@
 import styled from "styled-components";
 import PieChart from "./Charts/PieChart";
 
+import { useGlobalContext } from "../Context/Context";
 
 const Repos = () => {
-  const chartData = [
-    {
-      label: "HTML",
-      value: "25",
-    },
-    {
-      label: "JavaScript",
-      value: "60",
-    },
-    {
-      label: "CSS",
-      value: "10",
-    },
-    {
-      label: "React ",
-      value: "5",
-    },
-  ];
+  const { repos } = useGlobalContext();
+
+  let Languages = repos.reduce((total, item) => {
+    const { language } = item;
+    if (!language) return total;
+
+    if (!total[language]) {
+      total[language] = { label: language, value: 1 };
+    } else if (total[language]) {
+      total[language] = {
+        ...total[language],
+        value: total[language].value + 2,
+      };
+    }
+    return total;
+  }, {});
+
+  Languages = Object.values(Languages).sort((a, b) => b.value - a.value).slice(0,5);
+ 
+
+  // const chartData = [
+  //   {
+  //     label: "HTML",
+  //     value: "25",
+  //   },
+  //   {
+  //     label: "JavaScript",
+  //     value: "60",
+  //   },
+  //   {
+  //     label: "CSS",
+  //     value: "10",
+  //   },
+  //   {
+  //     label: "React ",
+  //     value: "5",
+  //   },
+  // ];
 
   return (
     <section className="section">
       <Wrapper className="section-center">
-        <PieChart data={chartData} />
+        <PieChart data={Languages} />
       </Wrapper>
     </section>
   );
