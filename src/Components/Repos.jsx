@@ -24,24 +24,7 @@ const Repos = () => {
   Languages = Object.values(Languages).sort((a, b) => b.value - a.value).slice(0,5);
  
 
-  // const chartData = [
-  //   {
-  //     label: "HTML",
-  //     value: "25",
-  //   },
-  //   {
-  //     label: "JavaScript",
-  //     value: "60",
-  //   },
-  //   {
-  //     label: "CSS",
-  //     value: "10",
-  //   },
-  //   {
-  //     label: "React ",
-  //     value: "5",
-  //   },
-  // ];
+
 
   return (
     <section className="section">
@@ -77,3 +60,23 @@ const Wrapper = styled.div`
 `;
 
 export default Repos;
+
+
+  // const chartData = [
+  //   {
+  //     label: "HTML",
+  //     value: "25",
+  //   },
+  //   {
+  //     label: "JavaScript",
+  //     value: "60",
+  //   },
+  //   {
+  //     label: "CSS",
+  //     value: "10",
+  //   },
+  //   {
+  //     label: "React ",
+  //     value: "5",
+  //   },
+  // ];
