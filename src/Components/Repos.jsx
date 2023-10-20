@@ -6,6 +6,8 @@ import { useGlobalContext } from "../Context/Context";
 const Repos = () => {
   const { repos } = useGlobalContext();
 
+
+// vanilla JS
   let Languages = repos.reduce((total, item) => {
     const { language } = item;
     if (!language) return total;
@@ -15,15 +17,17 @@ const Repos = () => {
     } else if (total[language]) {
       total[language] = {
         ...total[language],
-        value: total[language].value + 2,
+        value: total[language].value + 1,
       };
     }
     return total;
   }, {});
 
-  Languages = Object.values(Languages).sort((a, b) => b.value - a.value).slice(0,5);
- 
+  Languages = Object.values(Languages)
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 5);
 
+    // vanilla js
 
 
   return (
@@ -61,22 +65,21 @@ const Wrapper = styled.div`
 
 export default Repos;
 
-
-  // const chartData = [
-  //   {
-  //     label: "HTML",
-  //     value: "25",
-  //   },
-  //   {
-  //     label: "JavaScript",
-  //     value: "60",
-  //   },
-  //   {
-  //     label: "CSS",
-  //     value: "10",
-  //   },
-  //   {
-  //     label: "React ",
-  //     value: "5",
-  //   },
-  // ];
+// const chartData = [
+//   {
+//     label: "HTML",
+//     value: "25",
+//   },
+//   {
+//     label: "JavaScript",
+//     value: "60",
+//   },
+//   {
+//     label: "CSS",
+//     value: "10",
+//   },
+//   {
+//     label: "React ",
+//     value: "5",
+//   },
+// ];
