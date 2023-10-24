@@ -2,38 +2,71 @@ import styled from "styled-components";
 import PieChart from "./Charts/PieChart";
 
 import { useGlobalContext } from "../Context/Context";
+import DoughnutChart from "./Charts/Doughnut";
+import ColumnChart from "./Charts/Column";
+import BarChart from "./Charts/Bar";
 
 const Repos = () => {
   const { repos } = useGlobalContext();
 
-
-// vanilla JS
-  let Languages = repos.reduce((total, item) => {
-    const { language } = item;
+  const Languages = repos.reduce((total, item) => {
+    const { language, stargazers_count } = item;
     if (!language) return total;
 
     if (!total[language]) {
-      total[language] = { label: language, value: 1 };
+      total[language] = { label: language, value: 1, stars: stargazers_count };
     } else if (total[language]) {
       total[language] = {
         ...total[language],
         value: total[language].value + 1,
+        stars: total[language].stars + stargazers_count,
       };
     }
     return total;
   }, {});
 
-  Languages = Object.values(Languages)
+  const { forks, stars } = repos.reduce(
+    (total, item) => {
+      let { stargazers_count, forks_count, name } = item;
+
+      total.stars[stargazers_count] = { label: name, value: stargazers_count };
+
+      total.forks[forks_count] = { label: name, value: forks_count };
+
+      return total;
+    },
+    {
+      stars: {},
+      forks: {},
+    }
+  );
+
+  // most popular
+  const mostPopular = Object.values(stars).slice(-5).reverse();
+
+  // most forked
+  const mostForked = Object.values(forks).slice(-5).reverse();
+
+  // most used languages
+  const mostUsedLanguages = Object.values(Languages)
     .sort((a, b) => b.value - a.value)
     .slice(0, 5);
 
-    // vanilla js
-
+  // most stars per lang
+  const mostStars = Object.values(Languages)
+    .sort((a, b) => b.stars - a.stars)
+    .slice(0, 5)
+    .map((item) => {
+      return { ...item, value: item.stars };
+    });
 
   return (
     <section className="section">
       <Wrapper className="section-center">
-        <PieChart data={Languages} />
+        <PieChart data={mostUsedLanguages} />
+        <ColumnChart data={mostPopular} />
+        <DoughnutChart data={mostStars} />
+        <BarChart data={mostForked} />
       </Wrapper>
     </section>
   );
@@ -64,22 +97,3 @@ const Wrapper = styled.div`
 `;
 
 export default Repos;
-
-// const chartData = [
-//   {
-//     label: "HTML",
-//     value: "25",
-//   },
-//   {
-//     label: "JavaScript",
-//     value: "60",
-//   },
-//   {
-//     label: "CSS",
-//     value: "10",
-//   },
-//   {
-//     label: "React ",
-//     value: "5",
-//   },
-// ];
