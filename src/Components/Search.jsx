@@ -6,12 +6,13 @@ import { BiSearchAlt } from "react-icons/bi";
 
 const Search = () => {
   const [user, setUser] = useState("");
-  const { limit, error } = useGlobalContext();
-
-  console.log(error.show);
+  const { limit, error, getUser } = useGlobalContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (user) {
+      getUser(user);
+    }
   };
 
   return (

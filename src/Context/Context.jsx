@@ -23,7 +23,6 @@ function AppProvider({ children }) {
     let {
       rate: { remaining },
     } = data;
-    remaining = 0;
     setLimit(remaining);
 
     if (remaining === 0) {
@@ -32,16 +31,21 @@ function AppProvider({ children }) {
   };
 
   // Showing Errors
-  function showError(show, msg) {
+  function showError(show = false, msg = "") {
     setError({ show, msg });
   }
 
+  const getUser = async (user) => {
+    const response = await fetch(`${rootUrl}/users/${user}`);
+    const data = await response.json()
+    setUser(data)
+  };
   useEffect(() => {
     calculateReqs();
   }, []);
 
   return (
-    <appContext.Provider value={{ user, followers, repos, limit, error }}>
+    <appContext.Provider value={{ user, followers, repos, limit, error,getUser }}>
       {children}
     </appContext.Provider>
   );
