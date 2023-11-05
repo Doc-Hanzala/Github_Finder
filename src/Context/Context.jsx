@@ -15,6 +15,7 @@ function AppProvider({ children }) {
   const [repos, setRepos] = useState(Repos);
   const [limit, setLimit] = useState();
   const [error, setError] = useState({ show: false, msg: "" });
+  const [isLoading, setIsLoading] = useState(false);
 
   // calculating Reqs Limit
   const calculateReqs = async () => {
@@ -36,16 +37,25 @@ function AppProvider({ children }) {
   }
 
   const getUser = async (user) => {
+    setIsLoading(true);
     const response = await fetch(`${rootUrl}/users/${user}`);
-    const data = await response.json()
-    setUser(data)
+    const data = await response.json();
+    if (data.login) {
+      setUser(data);
+    } else {
+      calculateReqs();
+      showError(true, "Invalid User Name. Try again with proper name");
+    }
+    setIsLoading(false);
   };
   useEffect(() => {
     calculateReqs();
   }, []);
 
   return (
-    <appContext.Provider value={{ user, followers, repos, limit, error,getUser }}>
+    <appContext.Provider
+      value={{ user, followers, repos, limit, error, getUser, isLoading }}
+    >
       {children}
     </appContext.Provider>
   );

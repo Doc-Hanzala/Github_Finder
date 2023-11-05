@@ -43,7 +43,7 @@ const Intro = () => {
           <BsFillBuildingsFill /> {company || "company"}
         </p>
         <a target="_blank" href={`https:${blog}  `}>
-          <BsBrowserChrome /> {blog || N / A}
+          <BsBrowserChrome /> {blog || "N / A"}
         </a>
       </div>
     </Wrapper>
