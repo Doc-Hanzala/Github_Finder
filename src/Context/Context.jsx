@@ -35,13 +35,34 @@ function AppProvider({ children }) {
   function showError(show = false, msg = "") {
     setError({ show, msg });
   }
+  // https://api.github.com/users/john-smilga/repos?per_page=100
 
   const getUser = async (user) => {
+    showError(false, "");
     setIsLoading(true);
     const response = await fetch(`${rootUrl}/users/${user}`);
     const data = await response.json();
+
+    const { repos_url, followers_url } = data;
     if (data.login) {
       setUser(data);
+
+      // repos
+      const getRepos = async () => {
+        const response = await fetch(`${repos_url}?per_page=100`);
+        const reposData = await response.json();
+        setRepos(reposData);
+      };
+
+      // followers
+      const getFollowers = async () => {
+        const response = await fetch(`${followers_url}?per_page=100`);
+        const followersData = await response.json();
+        setFollowers(followersData);
+      };
+
+      getRepos();
+      getFollowers();
     } else {
       calculateReqs();
       showError(true, "Invalid User Name. Try again with proper name");
