@@ -8,7 +8,7 @@ const Navbar = () => {
       {user && user.picture && <img src={user.picture} alt={user.name} />}
       {user && user.name && <h3>welcome  {user.name} </h3>}
       {user ? (
-        <button
+        <button 
           onClick={() =>
             logout({ logoutParams: { returnTo: window.location.origin } })
           }

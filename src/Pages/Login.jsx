@@ -2,15 +2,18 @@ import LoginImg from "../assets/images/login-img.svg";
 
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useGlobalContext } from "../Context/Context";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Login = () => {
+  const { loginWithRedirect } = useAuth0();
   return (
     <Wrapper>
       <div className="container">
         <img src={LoginImg} alt="logIn Image" />
         <h1>github user</h1>
-        <Link className="btn">log in / sign up</Link>
+        <Link onClick={() => loginWithRedirect()} className="btn">
+          log in / sign up
+        </Link>
       </div>
     </Wrapper>
   );
