@@ -5,7 +5,7 @@ const Followers = () => {
   const { followers } = useGlobalContext();
 
   return (
-    <Wrapper>
+    <Wrapper  className="follower" >
       <div className="followers">
         {followers.map((follower) => {
           const { login, id, avatar_url: img, html_url } = follower;

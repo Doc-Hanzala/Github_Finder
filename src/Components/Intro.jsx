@@ -21,7 +21,7 @@ const Intro = () => {
     bio,
   } = user;
   return (
-    <Wrapper>
+    <Wrapper  className="intro">
       <header>
         <img src={img} alt={name} />
         <div>
@@ -51,11 +51,13 @@ const Intro = () => {
 };
 
 const Wrapper = styled.article`
+// width:48%;
   background: var(--clr-white);
   padding: 1.5rem 2rem;
   border-top-right-radius: var(--radius);
   border-bottom-left-radius: var(--radius);
   border-bottom-right-radius: var(--radius);
+  margin-bottom:3rem;
   position: relative;
   &::before {
     content: "user";
@@ -129,6 +131,10 @@ const Wrapper = styled.article`
       }
     }
   }
+
+   @media (min-width: 992px) {
+//     width:48%
+//   }
 `;
 
 export default Intro;
